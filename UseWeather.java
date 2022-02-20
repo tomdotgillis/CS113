@@ -52,7 +52,7 @@ public class UseWeather {
                                 "SEPTEMBER",
                                 "OCTOBER", "NOVEMBER", "DECEMBER" };
                 inputString = JOptionPane.showInputDialog(null,
-                                "Would you like to:\n[1] Monthly Rain Totals\n[2] MonthlySnowfall\n[3] Yearly Rainfall\n Yearly Snowfall\n[4] Yearly Temperature Difference",
+                                "Would you like to:\n[1] Monthly Rain Totals\n[2] MonthlySnowfall\n[3] Yearly Rainfall\n[4] Yearly Snowfall\n[5] Yearly High Temperature",
                                 "Weather Data", JOptionPane.QUESTION_MESSAGE);
                 input = Integer.parseInt(inputString);
 
@@ -89,7 +89,7 @@ public class UseWeather {
                                 month = isInvalidResponseMonth();
 
                         monthlyRain = weather.monthlyRainfall(start, end, month);
-                        System.out.println("- -\n" + monthStrings[month - 1] + "\n- -");
+                        System.out.println("- -\n" + monthStrings[month - 1] + "\n" + start + " to " + end + "\n- -");
                         for (int i = 0; i < monthlyRain.length; i++) {
                                 System.out.println("RAINFALL FOR " + monthStrings[month - 1] + " IN " + (start + i)
                                                 + ": "
@@ -130,6 +130,7 @@ public class UseWeather {
                         while (!inRangeYear(start))
                                 month = isInvalidResponseMonth();
                         monthlySnow = weather.monthlySnowfall(start, end, month);
+                        System.out.println("- -\n" + monthStrings[month - 1] + "\n" + start + " to " + end + "\n- -");
                         for (int i = 0; i < monthlySnow.length; i++) {
                                 System.out.println("SNOWFALL FOR " + (start + i) + ": "
                                                 + String.format("%.3f", monthlySnow[i]));
@@ -160,6 +161,7 @@ public class UseWeather {
 
                         // final printout
                         yearlyRain = weather.yearlyRainfall(start, end);
+                        System.out.println("- -\n" + start + " to " + end + "\n- -");
                         for (int i = 0; i < yearlyRain.length; i++) {
                                 System.out.println("YEARLY RAINFALL FOR " + (start + i) + ": "
                                                 + String.format("%.3f", yearlyRain[i]));
@@ -189,6 +191,7 @@ public class UseWeather {
                                 end = isInvalidResponseYear();
 
                         yearlySnow = weather.yearlySnowfall(start, end);
+                        System.out.println("- -\n" + start + " to " + end + "\n- -");
                         for (int i = 0; i < yearlySnow.length; i++) {
                                 System.out.println("YEARLY SNOWFALL FOR " + (start + i) + ": "
                                                 + String.format("%.3f", yearlySnow[i]));
