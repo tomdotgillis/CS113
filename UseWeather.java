@@ -40,12 +40,13 @@ public class UseWeather {
                                 monthlySnow, // array that holds te necessary amount of doubles - monthlySnow()
                                 yearlyRain, // array that holds te necessary amount of doubles - yearlyRain()
                                 yearlySnow, // array that holds te necessary amount of doubles - yearlySnow()
-                                anualHighTemp;// array that holds te necessary amount of doubles - anualHighTemp()
-                int start, // year to START searching
+                                annualHighTemp;// array that holds te necessary amount of doubles - anualHighTemp()
+                int input, // integer representation of the next datapoint in the string 'inputString'
+                                start, // year to START searching
                                 end, // year to STOP searhing
                                 month;// month to specifically search for
                 String inputString; // String representation of the next line in the data file being input
-                int input;// integer representation of the next datapoint in the string 'inputString'
+                double overall = 0;
                 Weather weather = new Weather();
                 boolean isInvalidResponse = false;
                 String[] monthStrings = { "JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE", "JULY", "AUGUST",
@@ -58,6 +59,7 @@ public class UseWeather {
 
                 // Monthly Rainfall Data
                 if (input == 1) {
+                        overall = 0;
                         // ask user for next input
                         inputString = JOptionPane.showInputDialog(null,
                                         "What year to start?",
@@ -94,12 +96,15 @@ public class UseWeather {
                                 System.out.println("RAINFALL FOR " + monthStrings[month - 1] + " IN " + (start + i)
                                                 + ": "
                                                 + String.format("%.3f", monthlyRain[i]));
+                                overall += monthlyRain[i];
                         }
+                        System.out.println("TOTAL RAINFALL FOR " + monthStrings[month - 1] + " FROM " + start + " TO "
+                                        + end + " IS " + String.format("%.3f", overall));
                 } // end monthlyRain possible loop.
 
                 // Monthly Snowfall Data
                 else if (input == 2) {
-
+                        overall = 0;
                         // ask user for next input
                         inputString = JOptionPane.showInputDialog(null,
                                         "What year to start?",
@@ -134,11 +139,15 @@ public class UseWeather {
                         for (int i = 0; i < monthlySnow.length; i++) {
                                 System.out.println("SNOWFALL FOR " + (start + i) + ": "
                                                 + String.format("%.3f", monthlySnow[i]));
+                                overall += monthlySnow[i];
                         }
+                        System.out.println("TOTAL RAINFALL FOR " + monthStrings[month - 1] + " FROM " + start + " TO "
+                                        + end + " IS " + overall);
                 } // end monthlyRain possible loop
 
                 // Yearly Rainfall Data
                 else if (input == 3) {
+                        overall = 0;
                         // ask user for next input
                         inputString = JOptionPane.showInputDialog(null,
                                         "What year to start?",
@@ -165,12 +174,17 @@ public class UseWeather {
                         for (int i = 0; i < yearlyRain.length; i++) {
                                 System.out.println("YEARLY RAINFALL FOR " + (start + i) + ": "
                                                 + String.format("%.3f", yearlyRain[i]));
+                                overall += yearlyRain[i];
                         }
+                        System.out.println("--------------------------------");
+                        System.out.println("TOTAL RAINFALL FROM " + start + " TO "
+                                        + end + " IS " + String.format("%.3f", overall));
 
                 } // end yearlyRainfall possible loop
 
                 // Yearly Snowfall Data
                 else if (input == 4) {
+                        overall = 0;
                         // ask user for next input
                         inputString = JOptionPane.showInputDialog(null,
                                         "What year to start?",
@@ -195,12 +209,16 @@ public class UseWeather {
                         for (int i = 0; i < yearlySnow.length; i++) {
                                 System.out.println("YEARLY SNOWFALL FOR " + (start + i) + ": "
                                                 + String.format("%.3f", yearlySnow[i]));
+                                overall += yearlySnow[i];
                         }
+                        System.out.println("TOTAL RAINFALL FROM " + start + " TO "
+                                        + end + " IS " + String.format("%.3f", overall));
 
                 } // end yearlySnowfall possible loop
 
                 // Yearly High Temperature Data
                 else if (input == 5) {
+                        overall = 0;
                         // ask user for next input
                         inputString = JOptionPane.showInputDialog(null,
                                         "What year to start?",
@@ -217,13 +235,17 @@ public class UseWeather {
                         end = Integer.parseInt(inputString);
 
                         // is valid input
-                        while (!inRangeYear(start))
-                                start = isInvalidResponseYear();
-                        anualHighTemp = weather.yearlyHighTemp(start, end);
-                        for (int i = 0; i < anualHighTemp.length; i++) {
+                        while (!inRangeYear(end))
+                                end = isInvalidResponseYear();
+
+                        annualHighTemp = weather.yearlyHighTemp(start, end);
+                        for (int i = 0; i < annualHighTemp.length; i++) {
                                 System.out.println("YEARLY HIGH TEMP FOR " + (start + i) + ": "
-                                                + String.format("%.3f", anualHighTemp[i]) + "⁰" + "F");
+                                                + String.format("%.3f", annualHighTemp[i]) + "⁰" + "F");
+                                overall += annualHighTemp[i];
                         }
+                        System.out.println("TOTAL RAINFALL FROM " + start + " TO "
+                                        + end + " IS " + String.format("%.3f", overall));
 
                 } // end yearlySnowfall possible loop
                 System.out.println("");
